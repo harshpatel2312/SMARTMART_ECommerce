@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerce_WebApp", "ECommerce_WebApp\ECommerce_WebApp.csproj", "{7A588A99-039A-4222-B09A-2D5B0AB03BF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerce_WebApp.Operations", "ECommerce_WebApp\ECommerce_WebApp.Operations.csproj", "{7A588A99-039A-4222-B09A-2D5B0AB03BF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce_WebApp.Entities", "ECommerce_WebApp.Entities\ECommerce_WebApp.Entities.csproj", "{2415AD35-BB58-4D6B-B8F0-46CE2AC443F8}"
 EndProject
