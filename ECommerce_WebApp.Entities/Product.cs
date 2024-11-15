@@ -26,6 +26,7 @@ namespace ECommerce_WebApp.Entities
 
         [ForeignKey("CategoryId")]
         public Category ProdCategory { get; set; }
+        public decimal? ProdRating { get; set; }
 
     }
 }

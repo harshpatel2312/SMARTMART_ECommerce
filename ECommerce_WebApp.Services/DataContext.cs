@@ -17,5 +17,11 @@ namespace ECommerce_WebApp.Services
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ConfigureProdandCategory();
+        }
     }
 }

@@ -9,8 +9,8 @@ namespace ECommerce_WebApp.Services
 {
     public interface ICategoryService
     {
-        Category GetCategoryById(int id);
         IEnumerable<Category> GetAllCategories();
-        IEnumerable<Product> GetProductByCategoryId(int categoryId);
+        IEnumerable<Category> SearchCategoriesByName(string name);
+        IEnumerable<Product> GetProductsByCategoryName(string categoryName);
     }
 }
