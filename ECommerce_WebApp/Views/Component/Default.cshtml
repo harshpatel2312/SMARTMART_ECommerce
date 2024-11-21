@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ECommerce_WebApp.Models.Category>
+
+<div class="sidebar">
+    <h3>Categories</h3>
+    <ul class="list-group">
+        @foreach (var category in Model)
+        {
+            <li class="list-group-item">
+                <a asp-controller="Products" asp-action="ByCategory" asp-route-id="@category.Id">
+                    @category.Name
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+<style>
+    .sidebar {
+        padding: 15px;
+        background-color: #f8f9fa;
+    }
+    .sidebar h3 {
+        margin-bottom: 15px;
+    }
+</style>

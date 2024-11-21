@@ -1,49 +1,62 @@
 ﻿using ECommerce_WebApp.Entities;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ECommerce_WebApp.Services
 {
     public class ProductRepository : IProductService
     {
-        private DataContext _prodDbContext;
-        public ProductRepository(DataContext context) 
+        private readonly DataContext _prodDbContext;
+
+        public ProductRepository(DataContext context)
         {
             _prodDbContext = context;
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public async Task<Product> GetProductByIdAsync(int id)
         {
-            return _prodDbContext.Products.ToList();
+            return await _prodDbContext.Products.FirstOrDefaultAsync(p => p.ProdId == id);
         }
-        public IEnumerable<Product> SearchProductsByName(string prodName)
+
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        {
+            return await _prodDbContext.Products.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(int categoryId)
+        {
+            return await _prodDbContext.Products.Where(p => p.CategoryId == categoryId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Product>> SearchProductsByNameAsync(string prodName)
         {
             if (string.IsNullOrWhiteSpace(prodName))
             {
                 return Enumerable.Empty<Product>();
             }
+
             var keywords = prodName.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
             var query = _prodDbContext.Products.AsQueryable();
 
             foreach (var keyword in keywords)
             {
-                query = query.Where(p => p.ProdName.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(p => EF.Functions.Like(p.ProdName, $"%{keyword}%"));
             }
-            
-            return query.ToList();
+
+            return await query.ToListAsync();
         }
 
-        public IEnumerable<Product> GetProductsByPriceRange(decimal minPrice, decimal maxPrice)
+        public async Task<IEnumerable<Product>> GetProductsByPriceRangeAsync(decimal minPrice, decimal maxPrice)
         {
-            return _prodDbContext.Products.Where(p => p.ProdPrice >= minPrice &&  p.ProdPrice <= maxPrice).ToList();
+            return await _prodDbContext.Products.Where(p => p.ProdPrice >= minPrice && p.ProdPrice <= maxPrice).ToListAsync();
         }
-        public IEnumerable<Product> GetProductsByRating(int minRating)
+
+        public async Task<IEnumerable<Product>> GetProductsByRatingAsync(int minRating)
         {
-            return _prodDbContext.Products.Where(p => p.ProdRating >= minRating).ToList();
+            return await _prodDbContext.Products.Where(p => p.ProdRating >= minRating).ToListAsync();
         }
     }
 }
