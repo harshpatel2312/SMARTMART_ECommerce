@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ECommerce_WebApp.Models.Category>
+﻿@model IEnumerable<ECommerce_WebApp.Entities.Category>
 
 <div class="sidebar">
     <h3>Categories</h3>
@@ -6,8 +6,8 @@
         @foreach (var category in Model)
         {
             <li class="list-group-item">
-                <a asp-controller="Products" asp-action="ByCategory" asp-route-id="@category.Id">
-                    @category.Name
+                <a asp-controller="Products" asp-action="ByCategory" asp-route-id="@category.CategoryId">
+                    @category.CategoryName
                 </a>
             </li>
         }

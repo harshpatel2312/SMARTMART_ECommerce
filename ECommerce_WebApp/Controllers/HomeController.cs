@@ -1,7 +1,9 @@
 using ECommerce_WebApp.Models;
 using ECommerce_WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace ECommerce_WebApp.Controllers
 {
@@ -9,23 +11,27 @@ namespace ECommerce_WebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService; 
-        public HomeController(ILogger<HomeController> logger, ICategoryService categoryService, IProductService productService)
+        private readonly ICategoryService _categoryService;
+
+        public HomeController(
+            ILogger<HomeController> logger,
+            ICategoryService categoryService,
+            IProductService productService)
         {
             _logger = logger;
             _productService = productService;
             _categoryService = categoryService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.Categories = _categoryService.GetAllCategories();
+            ViewBag.Categories = await _categoryService.GetAllCategoriesAsync();
             return View();
         }
 
-        public IActionResult SearchProduct(string query)
+        public async Task<IActionResult> SearchProduct(string query)
         {
-            var products = _productService.SearchProductsByName(query);
+            var products = await _productService.SearchProductsByNameAsync(query);
             return View(products);
         }
 
@@ -37,7 +43,10 @@ namespace ECommerce_WebApp.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
         }
     }
 }

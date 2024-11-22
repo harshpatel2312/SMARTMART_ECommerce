@@ -22,6 +22,7 @@ namespace ECommerce_WebApp.Services
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ConfigureProdandCategory();
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

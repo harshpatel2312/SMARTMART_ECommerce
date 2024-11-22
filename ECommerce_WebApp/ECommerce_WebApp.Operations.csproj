@@ -10,4 +10,9 @@
     <ProjectReference Include="..\ECommerce_WebApp.Services\ECommerce_WebApp.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DataLayer\" />
+    <Folder Include="Views\Pages\" />
+  </ItemGroup>
+
 </Project>

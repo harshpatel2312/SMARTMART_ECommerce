@@ -1,8 +1,15 @@
+using ECommerce_WebApp.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<ICategoryService, CategoryRepository>();
+builder.Services.AddScoped<IProductService, ProductRepository>();
+
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
 
 
 var app = builder.Build();
