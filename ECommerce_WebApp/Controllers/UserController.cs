@@ -2,6 +2,7 @@
 using ECommerce_WebApp.Services.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using BCrypt.Net;
 
 namespace ECommerce_WebApp.Operations.Controllers
 {
@@ -28,6 +29,11 @@ namespace ECommerce_WebApp.Operations.Controllers
         public IActionResult SignUp(User user)
         {
             ViewBag.Roles = SelectRole();
+            
+            //Hashing the password before saving
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            user.Password = hashedPassword; //Overring the password with the hashed one
+
             var save = _userService.SignUpUser(user);
             if (save != null) { 
                 return View(save);
