@@ -50,14 +50,29 @@ namespace ECommerce_WebApp.Services
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByPriceRangeAsync(decimal minPrice, decimal maxPrice)
+        //public async Task<IEnumerable<Product>> GetProductsByPriceRangeAsync(decimal minPrice, decimal maxPrice)
+        //{
+        //    return await _prodDbContext.Products.Where(p => p.ProdPrice >= minPrice && p.ProdPrice <= maxPrice).ToListAsync();
+        //}
+
+        //public async Task<IEnumerable<Product>> GetProductsByRatingAsync(int minRating)
+        //{
+        //    return await _prodDbContext.Products.Where(p => p.ProdRating >= minRating).ToListAsync();
+        //}
+
+        public async Task<IEnumerable<Product>> GetFeaturedProductsAsync()
         {
-            return await _prodDbContext.Products.Where(p => p.ProdPrice >= minPrice && p.ProdPrice <= maxPrice).ToListAsync();
+            return await _prodDbContext.Products.Where(p => p.IsFeatured).ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByRatingAsync(int minRating)
+        public async Task<IEnumerable<Product>> GetBestSellersAsync()
         {
-            return await _prodDbContext.Products.Where(p => p.ProdRating >= minRating).ToListAsync();
+            return await _prodDbContext.Products.OrderByDescending(p => p.SalesCount).Take(10).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Product>> GetRecommendationsAsync(string username)
+        {
+            return await _prodDbContext.Products.OrderByDescending(p => p.CreatedDate).Take(10).ToListAsync();
         }
     }
 }

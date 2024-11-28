@@ -48,6 +48,9 @@ namespace ECommerce_WebApp.Services
         {
             return await _categoryDbContext.Categories.Include(c => c.SubCategories).Where(c => c.ParentCategoryId == null).ToListAsync();
         }
-
+        public async Task<IEnumerable<Category>> GetFeaturedCategoriesAsync()
+        {
+            return await _categoryDbContext.Categories.Where(c => c.IsFeatured).ToListAsync();
+        }
     }
 }

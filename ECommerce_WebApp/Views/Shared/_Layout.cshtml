@@ -5,21 +5,24 @@
     <title>@ViewData["Title"] - SmartMart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <!-- Bootstrap CSS (Lux Theme) -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
 
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
     <!-- General Site CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <!-- Header with Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <button class="btn btn-outline-light d-md-none mr-2" type="button" id="sidebarToggle">
-            <i class="fa fa-bars"></i>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top justify-content-between">
+        <button class="btn btn-outline-light mr-2" type="button" id="sidebarToggle">
+            <i class="bi bi-list"></i>
         </button>
+
         <a class="navbar-brand" href="@Url.Action("Index", "Home")">
             <img src="~/images/logo.png" alt="Logo" height="40" />
             SmartMart
@@ -38,7 +41,7 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Account
                     </a>
-                    <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="accountDropdown">
+                    <div class="dropdown-menu" aria-labelledby="accountDropdown">
                         <a class="dropdown-item" href="#">Your Account</a>
                         <a class="dropdown-item" href="#">Your Orders</a>
                         <a class="dropdown-item" href="#">Wishlist</a>
@@ -53,7 +56,7 @@
             </ul>
 
             <!-- Search Bar -->
-            <form class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="Product" method="get">
+            <form class="form-inline my-2 my-lg-0 d-flex align-items-center" asp-action="Search" asp-controller="Product" method="get">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search for products..."
                        aria-label="Search" name="query" />
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
@@ -63,9 +66,7 @@
             <ul class="navbar-nav ml-3">
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fa fa-shopping-cart"></i> Cart
-                        <!-- Uncomment below line to show cart count -->
-                        <!-- <span class="badge badge-pill badge-secondary">0</span> -->
+                        <i class="bi bi-cart"></i> Cart
                     </a>
                 </li>
             </ul>
@@ -83,23 +84,54 @@
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
         @RenderBody()
-
-        <!-- Footer -->
-        <footer class="footer mt-auto py-3 bg-dark text-white">
-            <div class="container text-center">
-                &copy; @DateTime.Now.Year - SmartMart -
-                <a class="text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
     </div>
 
-    <!-- Scripts -->
-    <!-- jQuery, Popper.js, Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Footer -->
+    <footer class="footer mt-auto py-4 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Get to Know Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">About Us</a></li>
+                        <li><a href="#" class="text-white">Careers</a></li>
+                        <li><a href="#" class="text-white">Press Releases</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Connect with Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Facebook</a></li>
+                        <li><a href="#" class="text-white">Twitter</a></li>
+                        <li><a href="#" class="text-white">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Make Money with Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Sell on SmartMart</a></li>
+                        <li><a href="#" class="text-white">Affiliate Program</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Let Us Help You</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Your Account</a></li>
+                        <li><a href="#" class="text-white">Returns Centre</a></li>
+                        <li><a href="#" class="text-white">Help</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="bg-white">
+            <div class="text-center">
+                &copy; @DateTime.Now.Year - SmartMart
+            </div>
+        </div>
+    </footer>
 
-    <!-- Custom JS -->
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

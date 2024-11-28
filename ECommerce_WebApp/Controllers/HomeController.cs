@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
+using ECommerce_WebApp.Operations.Models;
 namespace ECommerce_WebApp.Controllers
 {
     public class HomeController : Controller
@@ -25,8 +25,16 @@ namespace ECommerce_WebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var username = User.Identity?.IsAuthenticated == true ? User.Identity.Name : null;
             ViewBag.Categories = await _categoryService.GetAllCategoriesAsync();
-            return View();
+            var viewModel = new HomeViewModel
+            {
+                FeaturedCategories = await _categoryService.GetFeaturedCategoriesAsync(),
+                FeaturedProducts = await _productService.GetFeaturedProductsAsync(),
+                BestSellers = await _productService.GetBestSellersAsync(),
+                Recommendations = await _productService.GetRecommendationsAsync(username)
+            };
+            return View(viewModel);
         }
 
         
