@@ -1,5 +1,6 @@
 ﻿using ECommerce_WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace ECommerce_WebApp.Operations.Controllers
@@ -8,11 +9,13 @@ namespace ECommerce_WebApp.Operations.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
+        private readonly DataContext _dataContext;
 
-        public CategoryController(ICategoryService categoryService, IProductService productService)
+        public CategoryController(DataContext datacontext, ICategoryService categoryService, IProductService productService)
         {
             _categoryService = categoryService;
             _productService = productService;
+            _dataContext = datacontext;
         }
 
         public async Task<ActionResult> GetAllCategories()
@@ -21,20 +24,7 @@ namespace ECommerce_WebApp.Operations.Controllers
             return View(categories);
         }
 
-        // List all subcategories or products in a specific category
-        public async Task<IActionResult> CategoryDetails(int id)
-        {
-            var subcategories = await _categoryService.GetSubcategoriesByCategoryIdAsync(id);
+       
 
-            if (subcategories.Any())
-            {
-                return View("", subcategories);
-            }
-            else
-            {
-                var products = await _productService.GetProductsByCategoryIdAsync(id);
-                return View("", products);
-            }
-        }
     }
 }

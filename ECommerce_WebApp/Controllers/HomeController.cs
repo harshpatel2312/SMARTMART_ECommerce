@@ -29,11 +29,7 @@ namespace ECommerce_WebApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> SearchProduct(string query)
-        {
-            var products = await _productService.SearchProductsByNameAsync(query);
-            return View(products);
-        }
+        
 
         public IActionResult Privacy()
         {

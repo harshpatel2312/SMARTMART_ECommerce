@@ -15,8 +15,9 @@ namespace ECommerce_WebApp.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var categories = await _categoryService.GetAllCategoriesAsync();
+            var categories = await _categoryService.GetAllCategoriesWithSubCategoriesAsync();
             return View(categories);
         }
+
     }
 }

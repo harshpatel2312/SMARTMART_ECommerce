@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ECommerce_WebApp.Entities.Product>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Search Results</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning">
+            No products found for your search query.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    @Html.Partial("_ProductCard", product)
+                </div>
+            }
+        </div>
+
+    }
+</div>
+

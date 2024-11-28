@@ -43,5 +43,11 @@ namespace ECommerce_WebApp.Services
         {
             return await _categoryDbContext.Categories.Where(c => c.ParentCategoryId == categoryId).ToListAsync();
         }
+
+        public async Task<IEnumerable<Category>> GetAllCategoriesWithSubCategoriesAsync()
+        {
+            return await _categoryDbContext.Categories.Include(c => c.SubCategories).Where(c => c.ParentCategoryId == null).ToListAsync();
+        }
+
     }
 }

@@ -17,8 +17,9 @@ namespace ECommerce_WebApp.Services
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            return await _prodDbContext.Products.FirstOrDefaultAsync(p => p.ProdId == id);
+            return await _prodDbContext.Products.Include(p => p.Category) .FirstOrDefaultAsync(p => p.ProdId == id);
         }
+
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
