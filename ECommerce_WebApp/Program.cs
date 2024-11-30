@@ -1,4 +1,5 @@
 using ECommerce_WebApp.Services;
+using ECommerce_WebApp.Services.Users;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,8 @@ builder.Services.AddScoped<ICategoryService, CategoryRepository>();
 builder.Services.AddScoped<IProductService, ProductRepository>();
 
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection")));
+
+builder.Services.AddTransient<IUserService, UserRepository>();
 
 
 var app = builder.Build();
@@ -31,6 +34,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=User}/{action=LogIn}/{id?}");
 
 app.Run();

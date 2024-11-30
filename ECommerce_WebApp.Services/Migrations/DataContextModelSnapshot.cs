@@ -73,7 +73,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             CategoryName = "Kitchen Appliances",
                             IsFeatured = false,
                             ParentCategoryId = 4
-                        });
+                });
                 });
 
             modelBuilder.Entity("ECommerce_WebApp.Entities.Product", b =>

@@ -1,0 +1,119 @@
+﻿@model ECommerce_WebApp.Entities.User
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Shopper</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .signup-card {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+        .signup-header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bolder;
+        }
+
+        .signup-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #007bff;
+            font-weight:bold;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .password-hint {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .form-label{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="signup-header">Sign Up for E-Commerce</h1>
+    <b>
+        <h3 class="text-center text-muted">Become a Shopper Today!</h3>
+    </b>
+    <div class="container">
+        <div class="signup-card">
+            @using (Html.BeginForm("SignUp", "User", FormMethod.Post))
+            {
+                <div class="form-group mb-3">
+                    @Html.LabelFor(user => user.UserName, "Name", new { @class = "form-label"})
+                    @Html.TextBoxFor(user => user.UserName, new { @class = "form-control", @placeholder = "Enter your name" })
+                    @Html.ValidationMessageFor(user => user.UserName, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(user => user.Email, "Email", new { @class = "form-label" })
+                    @Html.TextBoxFor(user => user.Email, new { @class = "form-control", @placeholder = "Enter your email" })
+                    @Html.ValidationMessageFor(user => user.Email, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(user => user.Password, "Password", new { @class = "form-label" })
+                    <div class="password-hint">
+                        Password requirements:
+                        <ul>
+                            <li>Must contain at least one letter</li>
+                            <li>Must contain at least one symbol</li>
+                            <li>Must contain at least one digit</li>
+                            <li>Must be 8-20 characters long</li>
+                        </ul>
+                    </div>
+                    <div class="input-group">
+                        @Html.PasswordFor(user => user.Password, new { @class = "form-control", @id = "passwordInput", @placeholder = "Enter your password" })
+                        <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword()">
+                            <i id="toggleIcon" class="fa fa-eye"></i>
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(user => user.Password, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(user => user.Role, "Role", new { @class = "form-label" })
+                    @Html.DropDownListFor(user => user.Role, (IEnumerable<SelectListItem>)ViewBag.Roles, "Select Role", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(user => user.Role, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+
+                <a class="signup-link" asp-action="LogIn">Already have an account? Log In</a>
+            }
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/togglePassword.js"></script>
+}

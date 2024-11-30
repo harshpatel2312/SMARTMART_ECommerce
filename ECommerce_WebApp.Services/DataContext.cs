@@ -19,10 +19,13 @@ namespace ECommerce_WebApp.Services
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
 
+        public DbSet<User> Users { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ConfigureProdandCategory();
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.UsersSeed();
         }
 
         // While creating the database it was giving 'Microsoft.EntityFrameworkCore.Migrations.PendingModelChangesWarning'
@@ -31,6 +34,7 @@ namespace ECommerce_WebApp.Services
         {
             optionsBuilder.ConfigureWarnings(warnings =>
                 warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+            
         }
     }
 }
