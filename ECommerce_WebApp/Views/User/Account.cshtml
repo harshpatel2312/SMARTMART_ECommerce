@@ -1,0 +1,12 @@
+﻿@model ECommerce_WebApp.Entities.User
+
+@using (Html.BeginForm("Account", "User", FormMethod.Post))
+{
+    @Html.LabelFor(u => u.UserName, "Name: ")
+    @Html.TextBoxFor(u => u.UserName)
+
+    @Html.LabelFor(u => u.Email, "Email: ")
+    @Html.TextBoxFor(u => u.Email)
+
+    <input type="submit" value="Update" class="btn btn-primary"/>
+}

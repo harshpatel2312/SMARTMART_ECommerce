@@ -13,6 +13,7 @@
 
     <!-- General Site CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
 
     @RenderSection("Styles", required: false)
 </head>
@@ -39,13 +40,26 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Account
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span>Hello @User.Identity.Name</span>
+                        }
+                        else{
+                            <span>Account</span>
+                        }
                     </a>
                     <div class="dropdown-menu" aria-labelledby="accountDropdown">
-                        <a class="dropdown-item" href="#">Your Account</a>
-                        <a class="dropdown-item" href="#">Your Orders</a>
-                        <a class="dropdown-item" href="#">Wishlist</a>
-                        <a class="dropdown-item" href="#">Sign Out</a>
+                        @if (@ViewData["USername"] != null)
+                        {
+                            <a class="dropdown-item" asp-action="Account" asp-controller="User" asp-route-id="@ViewData["currentUserId"]">@ViewData["Username"]</a>
+                            <a class="dropdown-item" href="#">Your Orders</a>
+                            <a class="dropdown-item" href="#">Wishlist</a>
+                            <a class="dropdown-item" href="@Url.Action("LogOut", "User")">Sign Out</a>
+                        }
+                        else{
+                            <a class="dropdown-item" href="@Url.Action("LogIn", "User")">Log In</a>
+                            <a class="dropdown-item" href="@Url.Action("SignUp", "User")">Sign Up</a>
+                        }
                     </div>
                 </li>
 

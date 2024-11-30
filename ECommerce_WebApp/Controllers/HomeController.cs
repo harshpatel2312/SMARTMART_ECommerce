@@ -27,6 +27,8 @@ namespace ECommerce_WebApp.Controllers
         {
             var username = User.Identity?.IsAuthenticated == true ? User.Identity.Name : null;
             ViewBag.Categories = await _categoryService.GetAllCategoriesAsync();
+            ViewData["Username"] = HttpContext.Session.GetString("Username");
+            ViewData["currentUserId"] = HttpContext.Session.GetInt32("currentUserId");
             var viewModel = new HomeViewModel
             {
                 FeaturedCategories = await _categoryService.GetFeaturedCategoriesAsync(),

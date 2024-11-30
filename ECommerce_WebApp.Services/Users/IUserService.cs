@@ -11,6 +11,10 @@ namespace ECommerce_WebApp.Services.Users
     {
         User SignUpUser(User user);
 
-        bool LogInUser(string? email, string? password);
+        User LogInUser(string? email, string? password);
+
+        User GetUserById(int id);
+
+        User UpdateUser(User user);
     }
 }

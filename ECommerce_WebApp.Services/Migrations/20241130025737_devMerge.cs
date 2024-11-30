@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ECommerce_WebApp.Services.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class devMerge : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,6 +31,22 @@ namespace ECommerce_WebApp.Services.Migrations
                         column: x => x.ParentCategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserName = table.Column<string>(type: "TEXT", maxLength: 10, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    Role = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,7 +86,24 @@ namespace ECommerce_WebApp.Services.Migrations
                 values: new object[,]
                 {
                     { 1, "Electronics", true, null },
-                    { 4, "Home Appliances", false, null },
+                    { 4, "Home Appliances", false, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "Email", "Password", "Role", "UserName" },
+                values: new object[,]
+                {
+                    { 1, "harsh@gmail.com", "H@rsh123", "Admin", "Harsh" },
+                    { 2, "keron@gmail.com", "Keron@123", "Shopper", "Keron" },
+                    { 3, "arjun@gmail.com", "@rjun123", "Admin", "Arjun" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "CategoryName", "IsFeatured", "ParentCategoryId" },
+                values: new object[,]
+                {
                     { 2, "Computers & Accessories", true, 1 },
                     { 3, "Smartphones", false, 1 },
                     { 5, "Kitchen Appliances", false, 4 }
@@ -81,16 +114,16 @@ namespace ECommerce_WebApp.Services.Migrations
                 columns: new[] { "ProdId", "Brand", "CategoryId", "CreatedDate", "Dimensions", "IsFeatured", "ProdDescription", "ProdImage", "ProdName", "ProdPrice", "ProdRating", "SalesCount", "Warranty", "Weight" },
                 values: new object[,]
                 {
-                    { 5, "Sony", 1, new DateTime(2024, 10, 31, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(4149), "48 x 30 x 3 inches", true, "Large-screen TV with 4K resolution for ultimate entertainment.", "/images/products/4k_tv.jpg", "4K Ultra HD TV", 799.99m, 4.6m, 120, "2 years", "35 lbs" },
-                    { 6, "Bose", 1, new DateTime(2024, 11, 10, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5266), "7 x 6 x 3 inches", false, "Wireless headphones with noise cancellation and high-fidelity sound.", "/images/products/bluetooth_headphones.jpg", "Bluetooth Headphones", 199.99m, 4.3m, 80, "1 year", "1.5 lbs" },
-                    { 11, "Panasonic", 4, new DateTime(2024, 11, 12, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5287), "20 x 14 x 12 inches", false, "Compact microwave with multiple cooking modes.", "/images/products/microwave_oven.jpg", "Microwave Oven", 129.99m, 4.5m, 70, "3 years", "25 lbs" },
-                    { 12, "Dyson", 4, new DateTime(2024, 11, 18, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5290), "18 x 10 x 8 inches", true, "HEPA air purifier for clean and fresh indoor air.", "/images/products/air_purifier.jpg", "Air Purifier", 149.99m, 4.6m, 85, "2 years", "12 lbs" },
-                    { 7, "Logitech", 2, new DateTime(2024, 11, 5, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5275), "18 x 6 x 1 inches", true, "RGB backlit mechanical keyboard for gaming and productivity.", "/images/products/mechanical_keyboard.jpg", "Mechanical Keyboard", 89.99m, 4.7m, 150, "3 years", "2 lbs" },
-                    { 8, "Seagate", 2, new DateTime(2024, 11, 15, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5279), "4.6 x 3.1 x 0.8 inches", false, "2TB portable external hard drive for data backup and storage.", "/images/products/external_hard_drive.jpg", "External Hard Drive", 59.99m, 4.4m, 60, "2 years", "0.6 lbs" },
-                    { 9, "Samsung", 3, new DateTime(2024, 11, 20, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5282), "6 x 3 x 0.3 inches", true, "Budget smartphone with excellent performance and camera quality.", "/images/products/smartphone_abc.jpg", "Smartphone ABC", 299.99m, 4.1m, 90, "1 year", "0.4 lbs" },
-                    { 10, "Generic", 3, new DateTime(2024, 11, 25, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5285), "9 x 6 x 2 inches", false, "Includes phone case, screen protector, and charging cable.", "/images/products/smartphone_accessories.jpg", "Smartphone Accessories Pack", 49.99m, 4.0m, 40, "6 months", "1 lbs" },
-                    { 13, "Cuisinart", 5, new DateTime(2024, 11, 22, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5292), "11 x 7 x 8 inches", false, "Two-slice toaster with adjustable browning levels.", "/images/products/toaster.jpg", "Toaster", 24.99m, 4.2m, 50, "1 year", "5 lbs" },
-                    { 14, "Keurig", 5, new DateTime(2024, 11, 27, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5295), "15 x 9 x 13 inches", true, "Automatic coffee maker with programmable brewing.", "/images/products/coffee_maker.jpg", "Coffee Maker", 79.99m, 4.4m, 65, "2 years", "8 lbs" }
+                    { 5, "Sony", 1, new DateTime(2024, 10, 31, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(6430), "48 x 30 x 3 inches", true, "Large-screen TV with 4K resolution for ultimate entertainment.", "/images/products/4k_tv.jpg", "4K Ultra HD TV", 799.99m, 4.6m, 120, "2 years", "35 lbs" },
+                    { 6, "Bose", 1, new DateTime(2024, 11, 10, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8198), "7 x 6 x 3 inches", false, "Wireless headphones with noise cancellation and high-fidelity sound.", "/images/products/bluetooth_headphones.jpg", "Bluetooth Headphones", 199.99m, 4.3m, 80, "1 year", "1.5 lbs" },
+                    { 11, "Panasonic", 4, new DateTime(2024, 11, 12, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8230), "20 x 14 x 12 inches", false, "Compact microwave with multiple cooking modes.", "/images/products/microwave_oven.jpg", "Microwave Oven", 129.99m, 4.5m, 70, "3 years", "25 lbs" },
+                    { 12, "Dyson", 4, new DateTime(2024, 11, 18, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8234), "18 x 10 x 8 inches", true, "HEPA air purifier for clean and fresh indoor air.", "/images/products/air_purifier.jpg", "Air Purifier", 149.99m, 4.6m, 85, "2 years", "12 lbs" },
+                    { 7, "Logitech", 2, new DateTime(2024, 11, 5, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8212), "18 x 6 x 1 inches", true, "RGB backlit mechanical keyboard for gaming and productivity.", "/images/products/mechanical_keyboard.jpg", "Mechanical Keyboard", 89.99m, 4.7m, 150, "3 years", "2 lbs" },
+                    { 8, "Seagate", 2, new DateTime(2024, 11, 15, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8217), "4.6 x 3.1 x 0.8 inches", false, "2TB portable external hard drive for data backup and storage.", "/images/products/external_hard_drive.jpg", "External Hard Drive", 59.99m, 4.4m, 60, "2 years", "0.6 lbs" },
+                    { 9, "Samsung", 3, new DateTime(2024, 11, 20, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8222), "6 x 3 x 0.3 inches", true, "Budget smartphone with excellent performance and camera quality.", "/images/products/smartphone_abc.jpg", "Smartphone ABC", 299.99m, 4.1m, 90, "1 year", "0.4 lbs" },
+                    { 10, "Generic", 3, new DateTime(2024, 11, 25, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8226), "9 x 6 x 2 inches", false, "Includes phone case, screen protector, and charging cable.", "/images/products/smartphone_accessories.jpg", "Smartphone Accessories Pack", 49.99m, 4.0m, 40, "6 months", "1 lbs" },
+                    { 13, "Cuisinart", 5, new DateTime(2024, 11, 22, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8238), "11 x 7 x 8 inches", false, "Two-slice toaster with adjustable browning levels.", "/images/products/toaster.jpg", "Toaster", 24.99m, 4.2m, 50, "1 year", "5 lbs" },
+                    { 14, "Keurig", 5, new DateTime(2024, 11, 27, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8242), "15 x 9 x 13 inches", true, "Automatic coffee maker with programmable brewing.", "/images/products/coffee_maker.jpg", "Coffee Maker", 79.99m, 4.4m, 65, "2 years", "8 lbs" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -109,6 +142,9 @@ namespace ECommerce_WebApp.Services.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Categories");

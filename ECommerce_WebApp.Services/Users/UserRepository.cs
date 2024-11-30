@@ -21,14 +21,26 @@ namespace ECommerce_WebApp.Services.Users
             return user;
         }
 
-        public bool LogInUser(string? email, string? password) {
+        public User? LogInUser(string? email, string? password) {
             //Getting data of the user if it exists
             var userExists = _dataContext.Users.FirstOrDefault(u => u.Email == email);
             if (userExists != null) {
                 bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, userExists.Password); // Checking if the password matches
-                return isPasswordValid;
+                return userExists;
             }
-            return false;
+            return null;
+        }
+
+        public User GetUserById(int id)
+        {
+            return _dataContext.Users.FirstOrDefault(u => u.UserId == id);
+        }
+
+        public User UpdateUser(User user)
+        {
+            _dataContext.Users.Update(user);
+            _dataContext.SaveChanges();
+            return user;
         }
     }
 }

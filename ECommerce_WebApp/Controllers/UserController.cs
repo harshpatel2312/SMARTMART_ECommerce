@@ -3,6 +3,7 @@ using ECommerce_WebApp.Services.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BCrypt.Net;
+using Microsoft.AspNetCore.Authentication;
 
 namespace ECommerce_WebApp.Operations.Controllers
 {
@@ -36,7 +37,7 @@ namespace ECommerce_WebApp.Operations.Controllers
 
             var save = _userService.SignUpUser(user);
             if (save != null) { 
-                return View(save);
+                return RedirectToAction("LogIn");
             }
             return NotFound();
         }
@@ -56,12 +57,50 @@ namespace ECommerce_WebApp.Operations.Controllers
         [HttpPost]
         public IActionResult LogIn(string? email, string? password)
         {
-            if (!_userService.LogInUser(email, password))
+            var user = _userService.LogInUser(email, password);
+
+            if (user == null)
             {
                 TempData["Message"] = "Invalid login credentials. Please sign up if you don't have an account.";
                 return View();
             }
+            HttpContext.Session.SetString("Username", user.UserName); // Creating a session
+            HttpContext.Session.SetInt32("currentUserId", user.UserId);
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            //Clearing authentication cookies
+            HttpContext.SignOutAsync();
+            return RedirectToAction("LogIn", "User");
+        }
+
+        [HttpGet]
+        public IActionResult Account()
+        {
+            //Getting userId from the current session
+            var userId = HttpContext.Session.GetInt32("currentUserId");
+            if(userId == null)
+            {
+                return RedirectToAction("LogIn", "User");
+            }
+
+            var user = _userService.GetUserById(userId.Value);
+            if(user != null)
+            {
+                return View(user);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult Account(User user)
+        {
+            _userService.UpdateUser(user);
+            return View();
         }
     }
 }
