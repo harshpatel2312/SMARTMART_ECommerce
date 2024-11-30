@@ -1,11 +1,30 @@
 ﻿@model IEnumerable<ECommerce_WebApp.Entities.Product>
 
+@{
+    ViewBag.Title = "Products in Category";
+}
+
 <div class="container mt-5">
-    <h2>Products in Subcategory</h2>
+    <h2>Products in Category</h2>
+
+    <!-- Sorting Options -->
+    <div class="d-flex justify-content-end mb-3">
+        <form method="get" class="form-inline">
+            <!-- Preserve existing query parameters -->
+            <input type="hidden" name="categoryId" value="@ViewBag.CategoryId" />
+
+            <label for="sortOption" class="mr-2">Sort by:</label>
+            <select name="sortOption" id="sortOption" class="form-control" onchange="this.form.submit()">
+                <option value="">Default</option>
+                <option value="PriceLowToHigh" selected="@(ViewBag.SortOption == "PriceLowToHigh")">Price: Low to High</option>
+                <option value="PriceHighToLow" selected="@(ViewBag.SortOption == "PriceHighToLow")">Price: High to Low</option>
+            </select>
+        </form>
+    </div>
 
     @if (!Model.Any())
     {
-        <div class="alert alert-warning">No products found in this subcategory.</div>
+        <div class="alert alert-warning">No products found in this category.</div>
     }
     else
     {
@@ -13,10 +32,9 @@
             @foreach (var product in Model)
             {
                 <div class="col-md-4 mb-4">
-                    @Html.Partial("_ProductCard", product)
+                    @await Html.PartialAsync("_ProductCard", product)
                 </div>
             }
         </div>
-
     }
 </div>

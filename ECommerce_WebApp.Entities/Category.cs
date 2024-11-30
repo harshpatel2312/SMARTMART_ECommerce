@@ -25,5 +25,6 @@ namespace ECommerce_WebApp.Entities
 
         // Collection of products belonging to this category
         public ICollection<Product> Products { get; set; } = new List<Product>();
+        public bool IsFeatured { get; set; } = false;
     }
 }

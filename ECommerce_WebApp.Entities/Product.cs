@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommerce_WebApp.Entities
@@ -28,5 +29,16 @@ namespace ECommerce_WebApp.Entities
         public Category Category { get; set; }
 
         public decimal? ProdRating { get; set; }
+        public int SalesCount { get; set; } = 0;
+
+        public bool IsFeatured { get; set; } = false;
+
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+
+        // Specifications
+        public string Brand { get; set; }
+        public string Dimensions { get; set; }
+        public string Weight { get; set; }
+        public string Warranty { get; set; }
     }
 }

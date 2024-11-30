@@ -11,5 +11,6 @@ namespace ECommerce_WebApp.Services
         Task<IEnumerable<Product>> GetProductsByCategoryNameAsync(string categoryName);
         Task<IEnumerable<Category>> GetSubcategoriesByCategoryIdAsync(int categoryId);
         Task<IEnumerable<Category>> GetAllCategoriesWithSubCategoriesAsync();
+        Task<IEnumerable<Category>> GetFeaturedCategoriesAsync();
     }
 }
