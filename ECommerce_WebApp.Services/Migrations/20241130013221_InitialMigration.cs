@@ -47,7 +47,11 @@ namespace ECommerce_WebApp.Services.Migrations
                     ProdRating = table.Column<decimal>(type: "TEXT", nullable: true),
                     SalesCount = table.Column<int>(type: "INTEGER", nullable: false),
                     IsFeatured = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Brand = table.Column<string>(type: "TEXT", nullable: false),
+                    Dimensions = table.Column<string>(type: "TEXT", nullable: false),
+                    Weight = table.Column<string>(type: "TEXT", nullable: false),
+                    Warranty = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,21 +78,19 @@ namespace ECommerce_WebApp.Services.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProdId", "CategoryId", "CreatedDate", "IsFeatured", "ProdDescription", "ProdImage", "ProdName", "ProdPrice", "ProdRating", "SalesCount" },
+                columns: new[] { "ProdId", "Brand", "CategoryId", "CreatedDate", "Dimensions", "IsFeatured", "ProdDescription", "ProdImage", "ProdName", "ProdPrice", "ProdRating", "SalesCount", "Warranty", "Weight" },
                 values: new object[,]
                 {
-                    { 5, 1, new DateTime(2024, 10, 29, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(7902), true, "Large-screen TV with 4K resolution for ultimate entertainment.", "4k_tv.jpg", "4K Ultra HD TV", 799.99m, 4.6m, 120 },
-                    { 6, 1, new DateTime(2024, 11, 8, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8212), false, "Wireless headphones with noise cancellation and high-fidelity sound.", "bluetooth_headphones.jpg", "Bluetooth Headphones", 199.99m, 4.3m, 80 },
-                    { 11, 4, new DateTime(2024, 11, 10, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8228), false, "Compact microwave with multiple cooking modes.", "microwave_oven.jpg", "Microwave Oven", 129.99m, 4.5m, 70 },
-                    { 12, 4, new DateTime(2024, 11, 16, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8230), true, "HEPA air purifier for clean and fresh indoor air.", "air_purifier.jpg", "Air Purifier", 149.99m, 4.6m, 85 },
-                    { 15, 1, new DateTime(2024, 11, 21, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8237), true, "Control your smart home devices with a single hub.", "smart_home_hub.jpg", "Smart Home Hub", 99.99m, 4.3m, 75 },
-                    { 7, 2, new DateTime(2024, 11, 3, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8219), true, "RGB backlit mechanical keyboard for gaming and productivity.", "mechanical_keyboard.jpg", "Mechanical Keyboard", 89.99m, 4.7m, 150 },
-                    { 8, 2, new DateTime(2024, 11, 13, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8221), false, "2TB portable external hard drive for data backup and storage.", "external_hard_drive.jpg", "External Hard Drive", 59.99m, 4.4m, 60 },
-                    { 9, 3, new DateTime(2024, 11, 18, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8223), true, "Budget smartphone with excellent performance and camera quality.", "smartphone_abc.jpg", "Smartphone ABC", 299.99m, 4.1m, 90 },
-                    { 10, 3, new DateTime(2024, 11, 23, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8226), false, "Includes phone case, screen protector, and charging cable.", "smartphone_accessories.jpg", "Smartphone Accessories Pack", 49.99m, 4.0m, 40 },
-                    { 13, 5, new DateTime(2024, 11, 20, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8232), false, "Two-slice toaster with adjustable browning levels.", "toaster.jpg", "Toaster", 24.99m, 4.2m, 50 },
-                    { 14, 5, new DateTime(2024, 11, 25, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8234), true, "Automatic coffee maker with programmable brewing.", "coffee_maker.jpg", "Coffee Maker", 79.99m, 4.4m, 65 },
-                    { 16, 2, new DateTime(2024, 11, 14, 23, 7, 47, 37, DateTimeKind.Utc).AddTicks(8239), false, "Ergonomic gaming chair with adjustable height and lumbar support.", "gaming_chair.jpg", "Gaming Chair", 199.99m, 4.5m, 110 }
+                    { 5, "Sony", 1, new DateTime(2024, 10, 31, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(4149), "48 x 30 x 3 inches", true, "Large-screen TV with 4K resolution for ultimate entertainment.", "/images/products/4k_tv.jpg", "4K Ultra HD TV", 799.99m, 4.6m, 120, "2 years", "35 lbs" },
+                    { 6, "Bose", 1, new DateTime(2024, 11, 10, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5266), "7 x 6 x 3 inches", false, "Wireless headphones with noise cancellation and high-fidelity sound.", "/images/products/bluetooth_headphones.jpg", "Bluetooth Headphones", 199.99m, 4.3m, 80, "1 year", "1.5 lbs" },
+                    { 11, "Panasonic", 4, new DateTime(2024, 11, 12, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5287), "20 x 14 x 12 inches", false, "Compact microwave with multiple cooking modes.", "/images/products/microwave_oven.jpg", "Microwave Oven", 129.99m, 4.5m, 70, "3 years", "25 lbs" },
+                    { 12, "Dyson", 4, new DateTime(2024, 11, 18, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5290), "18 x 10 x 8 inches", true, "HEPA air purifier for clean and fresh indoor air.", "/images/products/air_purifier.jpg", "Air Purifier", 149.99m, 4.6m, 85, "2 years", "12 lbs" },
+                    { 7, "Logitech", 2, new DateTime(2024, 11, 5, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5275), "18 x 6 x 1 inches", true, "RGB backlit mechanical keyboard for gaming and productivity.", "/images/products/mechanical_keyboard.jpg", "Mechanical Keyboard", 89.99m, 4.7m, 150, "3 years", "2 lbs" },
+                    { 8, "Seagate", 2, new DateTime(2024, 11, 15, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5279), "4.6 x 3.1 x 0.8 inches", false, "2TB portable external hard drive for data backup and storage.", "/images/products/external_hard_drive.jpg", "External Hard Drive", 59.99m, 4.4m, 60, "2 years", "0.6 lbs" },
+                    { 9, "Samsung", 3, new DateTime(2024, 11, 20, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5282), "6 x 3 x 0.3 inches", true, "Budget smartphone with excellent performance and camera quality.", "/images/products/smartphone_abc.jpg", "Smartphone ABC", 299.99m, 4.1m, 90, "1 year", "0.4 lbs" },
+                    { 10, "Generic", 3, new DateTime(2024, 11, 25, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5285), "9 x 6 x 2 inches", false, "Includes phone case, screen protector, and charging cable.", "/images/products/smartphone_accessories.jpg", "Smartphone Accessories Pack", 49.99m, 4.0m, 40, "6 months", "1 lbs" },
+                    { 13, "Cuisinart", 5, new DateTime(2024, 11, 22, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5292), "11 x 7 x 8 inches", false, "Two-slice toaster with adjustable browning levels.", "/images/products/toaster.jpg", "Toaster", 24.99m, 4.2m, 50, "1 year", "5 lbs" },
+                    { 14, "Keurig", 5, new DateTime(2024, 11, 27, 1, 32, 19, 65, DateTimeKind.Utc).AddTicks(5295), "15 x 9 x 13 inches", true, "Automatic coffee maker with programmable brewing.", "/images/products/coffee_maker.jpg", "Coffee Maker", 79.99m, 4.4m, 65, "2 years", "8 lbs" }
                 });
 
             migrationBuilder.CreateIndex(

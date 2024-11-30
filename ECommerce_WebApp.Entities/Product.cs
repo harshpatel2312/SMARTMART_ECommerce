@@ -34,5 +34,11 @@ namespace ECommerce_WebApp.Entities
         public bool IsFeatured { get; set; } = false;
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+
+        // Specifications
+        public string Brand { get; set; }
+        public string Dimensions { get; set; }
+        public string Weight { get; set; }
+        public string Warranty { get; set; }
     }
 }

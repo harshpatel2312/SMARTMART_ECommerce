@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿// Sidebar Functionality
+$(document).ready(function () {
     // Toggle sidebar on hamburger button click
     $('#sidebarToggle').on('click', function () {
         $('#sidebar').toggleClass('active');
@@ -13,3 +14,5 @@
         $('#mainContent').removeClass('shifted');
     });
 });
+
+

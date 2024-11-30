@@ -1,7 +1,26 @@
 ﻿@model IEnumerable<ECommerce_WebApp.Entities.Product>
 
+@{
+    ViewBag.Title = "Search Results";
+}
+
 <div class="container mt-5">
-    <h2 class="mb-4">Search Results</h2>
+    <h2 class="mb-4">Search Results for "@ViewBag.SearchQuery"</h2>
+
+    <!-- Sorting Options -->
+    <div class="d-flex justify-content-end mb-3">
+        <form method="get" class="form-inline">
+            <!-- Preserve existing query parameters -->
+            <input type="hidden" name="query" value="@ViewBag.SearchQuery" />
+
+            <label for="sortOption" class="mr-2">Sort by:</label>
+            <select name="sortOption" id="sortOption" class="form-control" onchange="this.form.submit()">
+                <option value="">Default</option>
+                <option value="PriceLowToHigh" selected="@(ViewBag.SortOption == "PriceLowToHigh")">Price: Low to High</option>
+                <option value="PriceHighToLow" selected="@(ViewBag.SortOption == "PriceHighToLow")">Price: High to Low</option>
+            </select>
+        </form>
+    </div>
 
     @if (!Model.Any())
     {

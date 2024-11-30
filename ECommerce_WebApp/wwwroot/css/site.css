@@ -4,13 +4,38 @@ html {
 
 
 
-body {
-    padding-top: 56px;
-    padding-bottom: 80px; /* Space for footer */
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    overflow-x: hidden;
+footer {
+    background-color: #333;
+    color: white;
 }
+
+    footer a {
+        color: white;
+        text-decoration: none;
+    }
+
+        footer a:hover {
+            color: #ff6b6b;
+        }
+
+    footer h5 {
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    footer p {
+        margin: 0;
+    }
+
+    footer .form-control {
+        border-radius: 0;
+    }
+
+    footer .btn {
+        border-radius: 0;
+    }
+
+/*Sidebar*/
 .sidebar {
     position: fixed;
     top: 56px;
@@ -92,3 +117,50 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+/*Searchbar*/
+.ui-autocomplete {
+    z-index: 1050; 
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Product Image Styling for Product Details*/
+.product-image2 {
+    width: 100%; /* Make it responsive to container */
+    height: 400px; /* Set a fixed height */
+    object-fit: cover; /* Crop the image proportionally to fit */
+    margin-bottom: 20px; /* Add some space below the image */
+}
+
+
+/* Product Image Styling for home and category*/
+.product-image {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover;
+}
+    .product-image:hover {
+        opacity: 0.9;
+        transition: opacity 0.3s;
+    }
+
+.card {
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+        height: 250px;
+        object-fit: cover;
+    }
+
+
+
+

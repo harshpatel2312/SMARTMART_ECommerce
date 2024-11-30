@@ -15,6 +15,7 @@ namespace ECommerce_WebApp.Services
         Task<IEnumerable<Product>> GetFeaturedProductsAsync();
         Task<IEnumerable<Product>> GetBestSellersAsync();
         Task<IEnumerable<Product>> GetRecommendationsAsync(string username);
-        Task<IEnumerable<Product>> GetProductsNameAsync(string searchTerm);
+        // Below method is functionality for implementing dynamic search suggestion 
+        Task<IEnumerable<string>> GetProductsNameAsync(string searchTerm);
     }
 }

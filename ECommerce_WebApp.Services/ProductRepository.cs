@@ -74,5 +74,20 @@ namespace ECommerce_WebApp.Services
         {
             return await _prodDbContext.Products.OrderByDescending(p => p.CreatedDate).Take(10).ToListAsync();
         }
+        public async Task<IEnumerable<string>> GetProductsNameAsync(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return Enumerable.Empty<string>(); 
+            }
+
+            return await _prodDbContext.Products
+                .Where(p => p.ProdName.ToLower().Contains(searchTerm.ToLower())) 
+                .Select(p => p.ProdName)
+                .Distinct() // Remove duplicate product names
+                .Take(10) // Limit results to 10 suggestions
+                .ToListAsync();
+        }
+
     }
 }
