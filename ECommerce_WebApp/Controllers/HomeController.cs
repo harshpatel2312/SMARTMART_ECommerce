@@ -27,6 +27,19 @@ namespace ECommerce_WebApp.Controllers
         {
             var username = User.Identity?.IsAuthenticated == true ? User.Identity.Name : null;
             ViewBag.Categories = await _categoryService.GetAllCategoriesAsync();
+
+            //Getting userId from the current session
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("LogIn", "User");
+            }
+
+            var userName = HttpContext.Session.GetString("Username");
+
+            ViewBag.UserId = userId;
+            ViewBag.Username = userName;
+
             var viewModel = new HomeViewModel
             {
                 FeaturedCategories = await _categoryService.GetFeaturedCategoriesAsync(),
@@ -36,6 +49,8 @@ namespace ECommerce_WebApp.Controllers
             };
             return View(viewModel);
         }
+
+        
 
         public IActionResult Privacy()
         {

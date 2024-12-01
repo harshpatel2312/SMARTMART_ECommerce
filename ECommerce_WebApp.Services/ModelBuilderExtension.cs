@@ -219,5 +219,13 @@ namespace ECommerce_WebApp.Services
                 }
             );
         }
+
+        public static void UsersSeed(this ModelBuilder modelBuilder) {
+            modelBuilder.Entity<User>().HasData(
+                new User { UserId = 1, UserName = "Harsh", Email = "harsh@gmail.com", Password = "H@rsh123", StreetAddress = "1234 Clairview St" , City = "Mississauga", Province = "ON", PostalCode = "L5N 4C6"},
+                new User { UserId = 2, UserName = "Keron", Email = "keron@gmail.com", Password = "Keron@123", StreetAddress = "5642 Winston Park", City = "Oakville", Province = "BC", PostalCode = "B2M 3F4"},
+                new User { UserId = 3, UserName = "Arjun", Email = "arjun@gmail.com", Password = "@rjun123",  StreetAddress = "6640 Boulevard Ave", City = "Brampton", Province = "AB", PostalCode = "C5B 7M8" }
+                );
+        }
     }
 }

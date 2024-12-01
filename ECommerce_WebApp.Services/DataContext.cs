@@ -21,6 +21,7 @@ namespace ECommerce_WebApp.Services
         public DbSet<UserCart> UserCarts { get; set; } = null!;
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,6 +33,7 @@ namespace ECommerce_WebApp.Services
                 .HasOne(uc => uc.Product)
                 .WithMany()
                 .HasForeignKey(uc => uc.ProductId);
+            modelBuilder.UsersSeed();
         }
 
         // While creating the database it was giving 'Microsoft.EntityFrameworkCore.Migrations.PendingModelChangesWarning'
@@ -41,6 +43,7 @@ namespace ECommerce_WebApp.Services
             optionsBuilder.ConfigureWarnings(warnings =>
                 warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         }
-
+            
+        }
     }
 }

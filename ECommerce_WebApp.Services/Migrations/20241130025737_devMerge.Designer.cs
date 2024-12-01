@@ -3,6 +3,7 @@ using System;
 using ECommerce_WebApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce_WebApp.Services.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241130025737_devMerge")]
+    partial class devMerge
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -74,47 +77,6 @@ namespace ECommerce_WebApp.Services.Migrations
                             IsFeatured = false,
                             ParentCategoryId = 4
                         });
-                });
-
-            modelBuilder.Entity("ECommerce_WebApp.Entities.OrderDetail", b =>
-                {
-                    b.Property<int>("OrderDetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PaymentType")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ShippingAddress")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("OrderDetailId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("ECommerce_WebApp.Entities.Product", b =>
@@ -182,7 +144,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             ProdId = 5,
                             Brand = "Sony",
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 11, 1, 4, 34, 54, 254, DateTimeKind.Utc).AddTicks(2206),
+                            CreatedDate = new DateTime(2024, 10, 31, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(6430),
                             Dimensions = "48 x 30 x 3 inches",
                             IsFeatured = true,
                             ProdDescription = "Large-screen TV with 4K resolution for ultimate entertainment.",
@@ -199,7 +161,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             ProdId = 6,
                             Brand = "Bose",
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 11, 11, 4, 34, 54, 254, DateTimeKind.Utc).AddTicks(3391),
+                            CreatedDate = new DateTime(2024, 11, 10, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8198),
                             Dimensions = "7 x 6 x 3 inches",
                             IsFeatured = false,
                             ProdDescription = "Wireless headphones with noise cancellation and high-fidelity sound.",
@@ -216,7 +178,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             ProdId = 7,
                             Brand = "Logitech",
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 11, 6, 4, 34, 54, 254, DateTimeKind.Utc).AddTicks(3430),
+                            CreatedDate = new DateTime(2024, 11, 5, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8212),
                             Dimensions = "18 x 6 x 1 inches",
                             IsFeatured = true,
                             ProdDescription = "RGB backlit mechanical keyboard for gaming and productivity.",
@@ -233,7 +195,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             ProdId = 8,
                             Brand = "Seagate",
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 11, 16, 4, 34, 54, 254, DateTimeKind.Utc).AddTicks(3433),
+                            CreatedDate = new DateTime(2024, 11, 15, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8217),
                             Dimensions = "4.6 x 3.1 x 0.8 inches",
                             IsFeatured = false,
                             ProdDescription = "2TB portable external hard drive for data backup and storage.",
@@ -250,7 +212,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             ProdId = 9,
                             Brand = "Samsung",
                             CategoryId = 3,
-                            CreatedDate = new DateTime(2024, 11, 21, 4, 34, 54, 254, DateTimeKind.Utc).AddTicks(3435),
+                            CreatedDate = new DateTime(2024, 11, 20, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8222),
                             Dimensions = "6 x 3 x 0.3 inches",
                             IsFeatured = true,
                             ProdDescription = "Budget smartphone with excellent performance and camera quality.",
@@ -267,7 +229,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             ProdId = 10,
                             Brand = "Generic",
                             CategoryId = 3,
-                            CreatedDate = new DateTime(2024, 11, 26, 4, 34, 54, 254, DateTimeKind.Utc).AddTicks(3438),
+                            CreatedDate = new DateTime(2024, 11, 25, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8226),
                             Dimensions = "9 x 6 x 2 inches",
                             IsFeatured = false,
                             ProdDescription = "Includes phone case, screen protector, and charging cable.",
@@ -284,7 +246,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             ProdId = 11,
                             Brand = "Panasonic",
                             CategoryId = 4,
-                            CreatedDate = new DateTime(2024, 11, 13, 4, 34, 54, 254, DateTimeKind.Utc).AddTicks(3440),
+                            CreatedDate = new DateTime(2024, 11, 12, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8230),
                             Dimensions = "20 x 14 x 12 inches",
                             IsFeatured = false,
                             ProdDescription = "Compact microwave with multiple cooking modes.",
@@ -301,7 +263,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             ProdId = 12,
                             Brand = "Dyson",
                             CategoryId = 4,
-                            CreatedDate = new DateTime(2024, 11, 19, 4, 34, 54, 254, DateTimeKind.Utc).AddTicks(3443),
+                            CreatedDate = new DateTime(2024, 11, 18, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8234),
                             Dimensions = "18 x 10 x 8 inches",
                             IsFeatured = true,
                             ProdDescription = "HEPA air purifier for clean and fresh indoor air.",
@@ -318,7 +280,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             ProdId = 13,
                             Brand = "Cuisinart",
                             CategoryId = 5,
-                            CreatedDate = new DateTime(2024, 11, 23, 4, 34, 54, 254, DateTimeKind.Utc).AddTicks(3445),
+                            CreatedDate = new DateTime(2024, 11, 22, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8238),
                             Dimensions = "11 x 7 x 8 inches",
                             IsFeatured = false,
                             ProdDescription = "Two-slice toaster with adjustable browning levels.",
@@ -335,7 +297,7 @@ namespace ECommerce_WebApp.Services.Migrations
                             ProdId = 14,
                             Brand = "Keurig",
                             CategoryId = 5,
-                            CreatedDate = new DateTime(2024, 11, 28, 4, 34, 54, 254, DateTimeKind.Utc).AddTicks(3448),
+                            CreatedDate = new DateTime(2024, 11, 27, 2, 57, 35, 890, DateTimeKind.Utc).AddTicks(8242),
                             Dimensions = "15 x 9 x 13 inches",
                             IsFeatured = true,
                             ProdDescription = "Automatic coffee maker with programmable brewing.",
@@ -355,11 +317,6 @@ namespace ECommerce_WebApp.Services.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -369,18 +326,8 @@ namespace ECommerce_WebApp.Services.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PostalCode")
+                    b.Property<string>("Role")
                         .IsRequired()
-                        .HasMaxLength(7)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Province")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserName")
@@ -396,34 +343,25 @@ namespace ECommerce_WebApp.Services.Migrations
                         new
                         {
                             UserId = 1,
-                            City = "Mississauga",
                             Email = "harsh@gmail.com",
                             Password = "H@rsh123",
-                            PostalCode = "L5N 4C6",
-                            Province = "ON",
-                            StreetAddress = "1234 Clairview St",
+                            Role = "Admin",
                             UserName = "Harsh"
                         },
                         new
                         {
                             UserId = 2,
-                            City = "Oakville",
                             Email = "keron@gmail.com",
                             Password = "Keron@123",
-                            PostalCode = "B2M 3F4",
-                            Province = "BC",
-                            StreetAddress = "5642 Winston Park",
+                            Role = "Shopper",
                             UserName = "Keron"
                         },
                         new
                         {
                             UserId = 3,
-                            City = "Brampton",
                             Email = "arjun@gmail.com",
                             Password = "@rjun123",
-                            PostalCode = "C5B 7M8",
-                            Province = "AB",
-                            StreetAddress = "6640 Boulevard Ave",
+                            Role = "Admin",
                             UserName = "Arjun"
                         });
                 });
@@ -437,17 +375,6 @@ namespace ECommerce_WebApp.Services.Migrations
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("ECommerce_WebApp.Entities.OrderDetail", b =>
-                {
-                    b.HasOne("ECommerce_WebApp.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ECommerce_WebApp.Entities.Product", b =>
                 {
                     b.HasOne("ECommerce_WebApp.Entities.Category", "Category")
@@ -457,17 +384,6 @@ namespace ECommerce_WebApp.Services.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("ECommerce_WebApp.Entities.UserCart", b =>
-                {
-                    b.HasOne("ECommerce_WebApp.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ECommerce_WebApp.Entities.Category", b =>
