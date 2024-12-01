@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ECommerce_WebApp.Entities.UserCart>
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h2>Checkout</h2>
+
+<form method="post" action="/Checkout/SubmitOrder">
+    <!-- Display cart items in the checkout page -->
+    <h4>Your Cart:</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product.ProdName</td>
+                    <td>$@item.Product.ProdPrice</td>
+                    <td>@item.Quantity</td>
+                    <td>$@(item.Product.ProdPrice * item.Quantity)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Customer details section -->
+    <div class="form-group">
+        <label for="Name">Full Name</label>
+        <input type="text" id="Name" name="Name" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="ShippingAddress">Shipping Address</label>
+        <textarea id="ShippingAddress" name="ShippingAddress" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="PaymentType">Payment Type</label>
+        <select id="PaymentType" name="PaymentType" class="form-control" required>
+            <option value="Credit">Credit</option>
+            <option value="Paypal">Paypal</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirm Order</button>
+</form>

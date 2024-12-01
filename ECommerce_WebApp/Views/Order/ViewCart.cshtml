@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ECommerce_WebApp.Entities.UserCart>
+
+<div class="container mt-5">
+    <h2>Your Cart</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product.ProdName</td>
+                    <td>$@item.Product.ProdPrice</td>
+                    <td>@item.Quantity</td>
+                    <td>$@(item.Product.ProdPrice * item.Quantity)</td>
+                    <td>
+                        <form method="post" action="/Cart/RemoveFromCart">
+                            <input type="hidden" name="cartId" value="@item.CartId" />
+                            <!-- Prompt for quantity removal -->
+                            <div class="input-group">
+                                <input type="number" name="quantityToRemove" value="1" min="1" max="@item.Quantity" class="form-control" />
+                                <button class="btn btn-danger">Remove</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Buy Now Button -->
+    <form method="post" action="/Checkout">
+        <button class="btn btn-success">Buy Now</button>
+    </form>
+</div>

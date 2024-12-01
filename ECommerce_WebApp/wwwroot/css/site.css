@@ -1,0 +1,166 @@
+html {
+    font-size: 14px;
+}
+
+
+
+footer {
+    background-color: #333;
+    color: white;
+}
+
+    footer a {
+        color: white;
+        text-decoration: none;
+    }
+
+        footer a:hover {
+            color: #ff6b6b;
+        }
+
+    footer h5 {
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    footer p {
+        margin: 0;
+    }
+
+    footer .form-control {
+        border-radius: 0;
+    }
+
+    footer .btn {
+        border-radius: 0;
+    }
+
+/*Sidebar*/
+.sidebar {
+    position: fixed;
+    top: 56px;
+    left: -250px;
+    height: calc(100% - 56px);
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    overflow-y: auto;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .sidebar ul {
+        padding: 0;
+        list-style: none;
+    }
+
+        .sidebar ul li {
+            margin: 1rem 0;
+        }
+
+            .sidebar ul li a {
+                text-decoration: none;
+                color: #333;
+                display: block;
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+            }
+
+                .sidebar ul li a:hover {
+                    background-color: #e2e6ea;
+                    color: #007bff;
+                }
+
+@media (min-width: 992px) {
+    .sidebar {
+        padding-top: 2rem;
+    }
+
+        .sidebar ul li {
+            margin: 1.5rem 0;
+        }
+}
+
+
+
+.main-content {
+    padding: 1rem;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+    .main-content.shifted {
+        margin-left: 250px;
+    }
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 56px);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    transition: opacity 0.3s ease-in-out;
+}
+
+    .overlay.active {
+        display: block;
+    }
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/*Searchbar*/
+.ui-autocomplete {
+    z-index: 1050; 
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Product Image Styling for Product Details*/
+.product-image2 {
+    width: 100%; /* Make it responsive to container */
+    height: 400px; /* Set a fixed height */
+    object-fit: cover; /* Crop the image proportionally to fit */
+    margin-bottom: 20px; /* Add some space below the image */
+}
+
+
+/* Product Image Styling for home and category*/
+.product-image {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover;
+}
+    .product-image:hover {
+        opacity: 0.9;
+        transition: opacity 0.3s;
+    }
+
+.card {
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+        height: 250px;
+        object-fit: cover;
+    }
+
+
+
+

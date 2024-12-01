@@ -1,0 +1,51 @@
+﻿@using ECommerce_WebApp.Entities
+@{
+    ViewData["Title"] = "Order Confirmation";
+    var orderDetails = ViewData["OrderDetails"] as List<OrderDetail>;
+    var totalAmount = ViewData["TotalAmount"] as decimal?;
+    var customerName = ViewData["CustomerName"] as string;
+    var shippingAddress = ViewData["ShippingAddress"] as string;
+    var paymentType = ViewData["PaymentType"] as string;
+}
+
+<h2>Your Order has been Confirmed!</h2>
+
+<p>Thank you for your purchase, @customerName! Your order is being processed and will be shipped to you soon.</p>
+
+<h3>Order Summary</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in orderDetails)
+        {
+                <tr>
+                    <!-- Corrected property from Name to ProdName -->
+                    <td>@item.Product.ProdName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Product.ProdPrice.ToString("C")</td>
+                    <td>@(item.Quantity * item.Product.ProdPrice)</td>
+                </tr>
+        }
+    </tbody>
+</table>
+
+<hr>
+
+<h4>Shipping Information</h4>
+<p><strong>Shipping Address:</strong> @shippingAddress</p>
+
+<h4>Payment Information</h4>
+<p><strong>Payment Method:</strong> @paymentType</p>
+
+<h4>Total Price</h4>
+<p><strong>Total Amount:</strong> @totalAmount?.ToString("C")</p>
+
+<a href="@Url.Action("Index", "Home")" class="btn btn-primary">Go to Home</a>

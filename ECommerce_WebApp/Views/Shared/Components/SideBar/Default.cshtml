@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ECommerce_WebApp.Entities.Category>
+
+<div class="sidebar-sticky pt-3">
+    <h5 class="px-3">Categories</h5>
+    <div id="accordion">
+        @foreach (var category in Model.Where(c => c.ParentCategoryId == null))
+        {
+            <div class="card">
+                <div class="card-header" id="heading-@category.CategoryId">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-@category.CategoryId" aria-expanded="false" aria-controls="collapse-@category.CategoryId">
+                            @category.CategoryName
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapse-@category.CategoryId" class="collapse" aria-labelledby="heading-@category.CategoryId" data-parent="#accordion">
+                    <div class="card-body">
+                        <ul class="list-unstyled pl-3">
+                            @foreach (var subcategory in category.SubCategories)
+                            {
+                                <li>
+                                    <a class="nav-link" asp-controller="Product" asp-action="ListByCategory" asp-route-categoryId="@subcategory.CategoryId">
+                                        @subcategory.CategoryName
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

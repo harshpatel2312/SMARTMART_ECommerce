@@ -1,0 +1,12 @@
+﻿@model ECommerce_WebApp.Entities.Product
+
+<div class="card h-100">
+    <img class="card-img-top product-image" src="@Model.ProdImage" alt="@Model.ProdName" />
+    <div class="card-body">
+        <h5 class="card-title">@Model.ProdName</h5>
+        <p class="card-text">@Model.ProdDescription</p>
+        <p class="card-text font-weight-bold">$@Model.ProdPrice</p>
+        <a href="@Url.Action("ProductDetails", "Product", new { id = Model.ProdId })" class="btn btn-primary">View Details</a>
+        <a href="@Url.Action("", "", new { id = Model.ProdId })" class="btn btn-primary">Add to Cart</a>
+    </div>
+</div>
