@@ -49,9 +49,9 @@
                         }
                     </a>
                     <div class="dropdown-menu" aria-labelledby="accountDropdown">
-                        @if (@ViewData["USername"] != null)
+                        @if (@ViewBag.UserId != null)
                         {
-                            <a class="dropdown-item" asp-action="Account" asp-controller="User" asp-route-id="@ViewData["currentUserId"]">@ViewData["Username"]</a>
+                            <a class="dropdown-item" asp-action="Account" asp-controller="User">@ViewBag.UserName</a>
                             <a class="dropdown-item" href="#">Your Orders</a>
                             <a class="dropdown-item" href="#">Wishlist</a>
                             <a class="dropdown-item" href="@Url.Action("LogOut", "User")">Sign Out</a>

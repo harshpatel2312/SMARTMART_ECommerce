@@ -1,12 +1,51 @@
-﻿@model ECommerce_WebApp.Entities.User
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white text-center">
+                <h1 class="h4 mb-0">Profile Page</h1>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>Username:</strong> @ViewBag.Username
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Email:</strong> @ViewBag.Email
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Street Address:</strong> @ViewBag.StreetAddress
+                    </li>
+                    <li class="list-group-item">
+                        <strong>City:</strong> @ViewBag.City
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Province:</strong> @ViewBag.Province
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Postal Code:</strong> @ViewBag.PostalCode
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer text-center">
+                <a class="btn btn-danger" href="@Url.Action("LogOut", "User")">
+                    <i class="bi bi-box-arrow-right"></i> Log out
+                </a>
+                <a class="btn btn-primary" asp-action="Update" asp-controller="User" asp-route-id="@Convert.ToInt32(ViewBag.UserId)">
+                    <i class="bi bi-box-arrow-right"></i>Edit
+                </a>
+            </div>
+        </div>
+    </div>
 
-@using (Html.BeginForm("Account", "User", FormMethod.Post))
-{
-    @Html.LabelFor(u => u.UserName, "Name: ")
-    @Html.TextBoxFor(u => u.UserName)
-
-    @Html.LabelFor(u => u.Email, "Email: ")
-    @Html.TextBoxFor(u => u.Email)
-
-    <input type="submit" value="Update" class="btn btn-primary"/>
-}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"></script>
+</body>
+</html>

@@ -14,6 +14,10 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.Configure<CookiePolicyOptions>(options => {
+    options.Secure = CookieSecurePolicy.Always; //Send cookies only ove https
+});
+
 builder.Services.AddScoped<ICategoryService, CategoryRepository>();
 builder.Services.AddScoped<IProductService, ProductRepository>();
 builder.Services.AddTransient<IUserService, UserRepository>();

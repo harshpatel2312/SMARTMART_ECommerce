@@ -14,22 +14,22 @@ namespace ECommerce_WebApp.Operations.Controllers
             _userService = userService;
         }
 
-        public List<SelectListItem> SelectRole()
+        public List<SelectListItem> SelectProvince()
         {
-            List<string> roles = new List<string> { "Shopper", "Admin" };
-            List<SelectListItem> selectRole = new List<SelectListItem>();
-            foreach (string role in roles) {
-                selectRole.Add(
-                    new SelectListItem { Text = role, Value = role }
+            List<string> provinces = new List<string> { "AB", "BC", "MB", "NB", "NL", "NS", "ON", "PE", "QC", "SK", "YT" };
+            List<SelectListItem> selectProvince = new List<SelectListItem>();
+            foreach (string province in provinces) {
+                selectProvince.Add(
+                    new SelectListItem { Text = province, Value = province }
                     );
             }
-            return selectRole;
+            return selectProvince;
         }
 
         [HttpPost]
         public IActionResult SignUp(User user)
         {
-            ViewBag.Roles = SelectRole();
+            ViewBag.Province = SelectProvince();
             
             //Hashing the password before saving
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
@@ -44,7 +44,7 @@ namespace ECommerce_WebApp.Operations.Controllers
 
         [HttpGet]
         public IActionResult SignUp() {
-            ViewBag.Roles = SelectRole();
+            ViewBag.Province = SelectProvince();
             return View();
         }
 
@@ -64,43 +64,72 @@ namespace ECommerce_WebApp.Operations.Controllers
                 TempData["Message"] = "Invalid login credentials. Please sign up if you don't have an account.";
                 return View();
             }
-            HttpContext.Session.SetString("Username", user.UserName); // Creating a session
-            HttpContext.Session.SetInt32("currentUserId", user.UserId);
+            //Creating a session
+            HttpContext.Session.SetString("UserId", user.UserId.ToString());
+            HttpContext.Session.SetString("Username", user.UserName);
+            HttpContext.Session.SetString("Email", user.Email);
+            HttpContext.Session.SetString("StreetAddress", user.StreetAddress);
+            HttpContext.Session.SetString("City", user.City);
+            HttpContext.Session.SetString("Province", user.Province);
+            HttpContext.Session.SetString("PostalCode", user.PostalCode);
+
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
         public IActionResult LogOut()
         {
+            //Clear Session
             HttpContext.Session.Clear();
             //Clearing authentication cookies
-            HttpContext.SignOutAsync();
+            //HttpContext.SignOutAsync();
             return RedirectToAction("LogIn", "User");
         }
 
-        [HttpGet]
         public IActionResult Account()
         {
             //Getting userId from the current session
-            var userId = HttpContext.Session.GetInt32("currentUserId");
-            if(userId == null)
+            var userId = HttpContext.Session.GetString("UserId");
+            if(string.IsNullOrEmpty(userId))
             {
                 return RedirectToAction("LogIn", "User");
             }
 
-            var user = _userService.GetUserById(userId.Value);
-            if(user != null)
-            {
-                return View(user);
+            var username = HttpContext.Session.GetString("Username");
+            var email = HttpContext.Session.GetString("Email");
+            var streetaddress = HttpContext.Session.GetString("StreetAddress");
+            var city = HttpContext.Session.GetString("City");
+            var province = HttpContext.Session.GetString("Provicne");
+            var postalCode = HttpContext.Session.GetString("PostalCode");
+            
+            ViewBag.UserId = userId;
+            ViewBag.Username = username;
+            ViewBag.Email = email;
+            ViewBag.StreetAddress = streetaddress;
+            ViewBag.City = city;
+            ViewBag.Province = province;
+            ViewBag.PostalCode = postalCode;
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            var user = _userService.GetUserById(id);
+
+            if (user == null) { 
+                return View("Error");
             }
-            return NotFound();
+
+            ViewBag.Province = SelectProvince();
+            return View(user);
         }
 
         [HttpPost]
-        public IActionResult Account(User user)
-        {
-            _userService.UpdateUser(user);
-            return View();
+        public ActionResult Update(User user) { 
+            var save = _userService.UpdateUser(user);
+            return RedirectToAction("Account", "User");
         }
     }
 }

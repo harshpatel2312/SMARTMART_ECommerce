@@ -28,8 +28,20 @@ namespace ECommerce_WebApp.Entities
             ErrorMessage = "The password must be at least 8 characters long and must include at least one letter, one number, and one special character.")]
         public string? Password { get; set; }
 
-        [Required(ErrorMessage = "Role is required")]
-        [UserRole(ErrorMessage = "Role should be Shopper or Admin")]
-        public string Role { get; set; }
+        [Required(ErrorMessage = "Street address is required")]
+        [StringLength(100, ErrorMessage = "Address should be of max 10-100 characters")]
+        public string? StreetAddress { get; set; }
+
+        [Required(ErrorMessage = "City is required")]
+        [StringLength(20, ErrorMessage = "City name should be of 2-20 characters", MinimumLength = 2)]
+        public string? City { get; set; }
+
+        [Required(ErrorMessage = "Province is required")]
+        public string? Province { get; set; }
+
+        [Required(ErrorMessage = "Postal code is required")]
+        [StringLength(7, ErrorMessage = "Postal code should be of 7 characters including space")]
+        [RegularExpression(@"^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$", ErrorMessage = "Postal code should follow a format of A1A 2B3")]
+        public string? PostalCode { get; set; }
     }
 }
