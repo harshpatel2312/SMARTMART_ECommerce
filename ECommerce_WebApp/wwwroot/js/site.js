@@ -1,4 +1,18 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// Sidebar Functionality
+$(document).ready(function () {
+    // Toggle sidebar on hamburger button click
+    $('#sidebarToggle').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $('#sidebarOverlay').toggleClass('active');
+        $('#mainContent').toggleClass('shifted');
+    });
 
-// Write your JavaScript code.
+    // Hide sidebar when clicking on overlay
+    $('#sidebarOverlay').on('click', function () {
+        $('#sidebar').removeClass('active');
+        $('#sidebarOverlay').removeClass('active');
+        $('#mainContent').removeClass('shifted');
+    });
+});
+
+

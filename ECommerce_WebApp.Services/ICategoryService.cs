@@ -1,16 +1,16 @@
 ﻿using ECommerce_WebApp.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ECommerce_WebApp.Services
 {
     public interface ICategoryService
     {
-        IEnumerable<Category> GetAllCategories();
-        IEnumerable<Category> SearchCategoriesByName(string name);
-        IEnumerable<Product> GetProductsByCategoryName(string categoryName);
+        Task<IEnumerable<Category>> GetAllCategoriesAsync();
+        Task<IEnumerable<Category>> SearchCategoriesByNameAsync(string name);
+        Task<IEnumerable<Product>> GetProductsByCategoryNameAsync(string categoryName);
+        Task<IEnumerable<Category>> GetSubcategoriesByCategoryIdAsync(int categoryId);
+        Task<IEnumerable<Category>> GetAllCategoriesWithSubCategoriesAsync();
+        Task<IEnumerable<Category>> GetFeaturedCategoriesAsync();
     }
 }

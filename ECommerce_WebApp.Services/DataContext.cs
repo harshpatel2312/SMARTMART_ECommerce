@@ -1,5 +1,6 @@
 ﻿using ECommerce_WebApp.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,28 @@ namespace ECommerce_WebApp.Services
     {
         public DataContext(DbContextOptions<DataContext> option) : base(option)
         {
-
+            
         }
 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; } = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
+
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ConfigureProdandCategory();
+            modelBuilder.UsersSeed();
+        }
+
+        // While creating the database it was giving 'Microsoft.EntityFrameworkCore.Migrations.PendingModelChangesWarning'
+        // Had to create this method to bypass this warning 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(warnings =>
+                warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+            
         }
     }
 }

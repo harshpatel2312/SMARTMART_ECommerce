@@ -2,48 +2,202 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ECommerce_WebApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"] - SmartMart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS (Lux Theme) -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <!-- General Site CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ECommerce_WebApp.styles.css" asp-append-version="true" />
+    
+
+    @RenderSection("Styles", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ECommerce_WebApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <!-- Header with Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top justify-content-between">
+        <button class="btn btn-outline-light mr-2" type="button" id="sidebarToggle">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+            <i class="bi bi-shop"></i> SmartMart
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Links and Search -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav mr-auto">
+                <!-- Account Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span>Hello @User.Identity.Name</span>
+                        }
+                        else{
+                            <span>Account</span>
+                        }
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                        @if (@ViewBag.UserId != null)
+                        {
+                            <a class="dropdown-item" asp-action="Account" asp-controller="User">@ViewBag.UserName</a>
+                            <a class="dropdown-item" href="#">Your Orders</a>
+                            <a class="dropdown-item" href="#">Wishlist</a>
+                            <a class="dropdown-item" href="@Url.Action("LogOut", "User")">Sign Out</a>
+                        }
+                        else{
+                            <a class="dropdown-item" href="@Url.Action("LogIn", "User")">Log In</a>
+                            <a class="dropdown-item" href="@Url.Action("SignUp", "User")">Sign Up</a>
+                        }
+                    </div>
+                </li>
+
+                <!-- Returns & Orders -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Returns & Orders</a>
+                </li>
+            </ul>
+
+            <!-- Search Bar -->
+            <form class="form-inline my-2 my-lg-0 d-flex align-items-center" asp-action="Search" asp-controller="Product" method="get">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search for products, categories, or brands..." style="width: 400px;"
+                       aria-label="Search" name="query" id="searchInput" autocomplete="off" />
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
+                    <i class="bi bi-search"></i>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </form>
+
+            <!-- Cart -->
+            <ul class="navbar-nav ml-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-cart"></i> Cart
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar bg-light">
+        @await Component.InvokeAsync("SideBar")
+    </div>
+
+    <!-- Overlay -->
+    <div id="sidebarOverlay" class="overlay"></div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto bg-dark text-white py-5">
+        <div class="container">
+            <!-- Subscribe Section (Only on Home Page) -->
+            @if (ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "Home")
+            {
+                <div class="row mb-5">
+                    <div class="col-md-12 text-center">
+                        <h3 class="mb-3">Subscribe to Our Newsletter</h3>
+                        <p class="mb-4">Stay updated with special offers and exclusive content:</p>
+                        <form class="form-inline justify-content-center">
+                            <div class="form-group mb-2 mr-2">
+                                <input type="email" class="form-control" placeholder="Enter your email" required />
+                            </div>
+                            <button class="btn btn-danger mb-2" type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            }
+
+            <!-- Footer Links -->
+            <div class="row text-center text-md-left">
+                <!-- Contact Section -->
+                <div class="col-md-3 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">Have questions? Reach out:</li>
+                        <li>
+                            <form>
+                                <input type="text" class="form-control mb-2" placeholder="Name" required />
+                                <input type="email" class="form-control mb-2" placeholder="Email" required />
+                                <textarea class="form-control mb-2" rows="3" placeholder="Message" required></textarea>
+                                <button class="btn btn-light btn-block" type="submit">Send</button>
+                            </form>
                         </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - ECommerce_WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <!-- About Section -->
+                <div class="col-md-3 mb-4">
+                    <h5>About</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">About Us</a></li>
+                        <li><a href="#" class="text-white">Careers</a></li>
+                        <li><a href="#" class="text-white">Support</a></li>
+                        <li><a href="#" class="text-white">Find a Store</a></li>
+                    </ul>
+                </div>
+
+                <!-- Store Information -->
+                <div class="col-md-3 mb-4">
+                    <h5>Store</h5>
+                    <ul class="list-unstyled">
+                        <li>SmartMart Inc.</li>
+                        <li>+1 (123) 456-7890</li>
+                        <li><a href="mailto:support@smartmart.com" class="text-white">support@smartmart.com</a></li>
+                    </ul>
+                    <h6 class="mt-4">We Accept:</h6>
+                    <p>
+                        <i class="bi bi-credit-card mr-2"></i>
+                        <i class="bi bi-paypal mr-2"></i>
+                        <i class="bi bi-apple-pay"></i>
+                    </p>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="col-md-3 mb-4">
+                    <h5>Follow Us</h5>
+                    <div>
+                        <a href="#" class="text-white mr-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white mr-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white mr-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <hr class="bg-light">
+            <div class="text-center">
+                <small>© @DateTime.Now.Year SmartMart. All Rights Reserved.</small>
+                <br>
+                <small>Powered by <a href="https://www.smartmart.com" class="text-danger">SmartMart</a></small>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <!-- Scripts -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/searchBar.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

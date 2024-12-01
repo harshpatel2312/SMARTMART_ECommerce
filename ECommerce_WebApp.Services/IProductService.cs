@@ -1,20 +1,21 @@
 ﻿using ECommerce_WebApp.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ECommerce_WebApp.Services
 {
     public interface IProductService
     {
-        IEnumerable<Product> GetAllProducts();
-        IEnumerable<Product> SearchProductsByName(string prodName);
-        IEnumerable<Product> GetProductsByPriceRange(decimal minPrice, decimal maxPrice);
-        IEnumerable<Product> GetProductsByRating(int minRating);
-        // GetProductsSortedByPrice
-
-
+        Task<IEnumerable<Product>> GetAllProductsAsync();
+        Task<Product> GetProductByIdAsync(int id);
+        Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(int categoryId);
+        Task<IEnumerable<Product>> SearchProductsByNameAsync(string prodName);
+        //Task<IEnumerable<Product>> GetProductsByPriceRangeAsync(decimal minPrice, decimal maxPrice);
+        //Task<IEnumerable<Product>> GetProductsByRatingAsync(int minRating);
+        Task<IEnumerable<Product>> GetFeaturedProductsAsync();
+        Task<IEnumerable<Product>> GetBestSellersAsync();
+        Task<IEnumerable<Product>> GetRecommendationsAsync(string username);
+        // Below method is functionality for implementing dynamic search suggestion 
+        Task<IEnumerable<string>> GetProductsNameAsync(string searchTerm);
     }
 }

@@ -1,43 +1,56 @@
 ﻿using ECommerce_WebApp.Entities;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ECommerce_WebApp.Services
 {
     public class CategoryRepository : ICategoryService
     {
-        private DataContext _categoryDbContext;
+        private readonly DataContext _categoryDbContext;
 
-        public CategoryRepository(DataContext category) 
+        public CategoryRepository(DataContext categoryDbContext)
         {
-            _categoryDbContext = category;
+            _categoryDbContext = categoryDbContext;
         }
 
-        public IEnumerable<Category> GetAllCategories()
+        public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
         {
-            return _categoryDbContext.Categories.ToList();
+            return await _categoryDbContext.Categories.ToListAsync();
         }
 
-        public IEnumerable<Category> SearchCategoriesByName(string name)
+        public async Task<IEnumerable<Category>> SearchCategoriesByNameAsync(string name)
         {
-            return _categoryDbContext.Categories.Where(c => c.CategoryName.Contains(name)).ToList();
+            return await _categoryDbContext.Categories.Where(c => c.CategoryName.Contains(name)).ToListAsync();
         }
 
-        public IEnumerable<Product> GetProductsByCategoryName(string categoryName)
+        public async Task<IEnumerable<Product>> GetProductsByCategoryNameAsync(string categoryName)
         {
-            var category = _categoryDbContext.Categories.FirstOrDefault(c => c.CategoryName == categoryName);
+            var category = await _categoryDbContext.Categories.FirstOrDefaultAsync(c => c.CategoryName == categoryName);
+
             if (category != null)
             {
-                return _categoryDbContext.Products.Where(p => p.CategoryId == category.CategoryId).ToList();
+                return await _categoryDbContext.Products.Where(p => p.CategoryId == category.CategoryId).ToListAsync();
             }
             else
             {
                 return Enumerable.Empty<Product>();
             }
-            
+        }
+
+        public async Task<IEnumerable<Category>> GetSubcategoriesByCategoryIdAsync(int categoryId)
+        {
+            return await _categoryDbContext.Categories.Where(c => c.ParentCategoryId == categoryId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Category>> GetAllCategoriesWithSubCategoriesAsync()
+        {
+            return await _categoryDbContext.Categories.Include(c => c.SubCategories).Where(c => c.ParentCategoryId == null).ToListAsync();
+        }
+        public async Task<IEnumerable<Category>> GetFeaturedCategoriesAsync()
+        {
+            return await _categoryDbContext.Categories.Where(c => c.IsFeatured).ToListAsync();
         }
     }
 }
