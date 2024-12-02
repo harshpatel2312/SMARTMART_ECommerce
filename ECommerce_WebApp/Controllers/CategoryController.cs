@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-//Made by Arjun
+
 namespace ECommerce_WebApp.Operations.Controllers
 {
+    //Made by Arjun
     [SessionDataFilter]
     public class CategoryController : Controller
     {

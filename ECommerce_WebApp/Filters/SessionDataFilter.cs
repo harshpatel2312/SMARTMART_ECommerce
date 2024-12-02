@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-//Made by Harsh
+
 namespace ECommerce_WebApp.Operations.Filters
 {
+    //Made by Harsh
     public class SessionDataFilter : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)

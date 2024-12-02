@@ -7,9 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-//Made by Harsh
+
 namespace ECommerce_WebApp.Entities
 {
+    //Made by Harsh
     public class User
     {
         [Key]

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce_WebApp.Components
 {
+    //Made by Arjun
     public class SideBarViewComponent : ViewComponent
     {
         private readonly ICategoryService _categoryService;

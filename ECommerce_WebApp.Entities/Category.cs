@@ -2,9 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-//made By Arjun
+
 namespace ECommerce_WebApp.Entities
 {
+    //made By Arjun
     public class Category
     {
         [Key]

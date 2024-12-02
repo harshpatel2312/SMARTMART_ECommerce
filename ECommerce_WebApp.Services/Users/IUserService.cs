@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Made by Harsh
+
 namespace ECommerce_WebApp.Services.Users
 {
+    //Made by Harsh
     public interface IUserService
     {
         User SignUpUser(User user);

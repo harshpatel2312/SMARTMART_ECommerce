@@ -1,4 +1,5 @@
-﻿// Sidebar Functionality
+﻿//Made by Arjun
+// Sidebar Functionality
 $(document).ready(function () {
     // Toggle sidebar on hamburger button click
     $('#sidebarToggle').on('click', function () {

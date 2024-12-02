@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Made by Harsh
+
 namespace ECommerce_WebApp.Services.Users
 {
+    //Made by Harsh
     public class UserRepository : IUserService
     {
         private readonly DataContext _dataContext;

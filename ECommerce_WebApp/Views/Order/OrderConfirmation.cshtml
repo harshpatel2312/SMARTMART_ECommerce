@@ -1,4 +1,6 @@
-﻿@using ECommerce_WebApp.Entities
+﻿
+
+@using ECommerce_WebApp.Entities
 @{
     ViewData["Title"] = "Order Confirmation";
     var orderDetails = ViewData["OrderDetails"] as List<OrderDetail>;
@@ -7,7 +9,7 @@
     var shippingAddress = ViewData["ShippingAddress"] as string;
     var paymentType = ViewData["PaymentType"] as string;
 }
-
+<!--Made by Keron-->
 <h2>Your Order has been Confirmed!</h2>
 
 <p>Thank you for your purchase, @customerName! Your order is being processed and will be shipped to you soon.</p>

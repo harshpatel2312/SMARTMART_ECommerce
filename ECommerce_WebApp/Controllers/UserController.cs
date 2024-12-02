@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using BCrypt.Net;
 using Microsoft.AspNetCore.Authentication;
 
-//Made by Harsh
+
 namespace ECommerce_WebApp.Operations.Controllers
 {
+    //Made by Harsh
     public class UserController : Controller
     {
         private IUserService _userService;

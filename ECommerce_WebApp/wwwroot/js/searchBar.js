@@ -1,3 +1,4 @@
+//Made by Arjun
 // SearchBar Functionality
 $(function() {
     $("#searchInput").autocomplete({

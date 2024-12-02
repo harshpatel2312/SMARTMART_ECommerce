@@ -2,6 +2,7 @@
 
 namespace ECommerce_WebApp.Operations.Models
 {
+    //Made by Arjun
     public class HomeViewModel
     {
         public IEnumerable<Category> FeaturedCategories { get; set; }

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-//Made by Keron
+
 namespace ECommerce_WebApp.Entities
 {
+    //Made by Keron
     public class UserCart
     {
         [Key]

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Made by Keron
+
 namespace ECommerce_WebApp.Entities
 {
+    //Made by Keron
     public class OrderDetail
     {
         public int OrderDetailId { get; set; }
