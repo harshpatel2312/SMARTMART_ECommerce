@@ -67,6 +67,7 @@ namespace ECommerce_WebApp.Operations.Controllers
             //Creating a session
             HttpContext.Session.SetString("UserId", user.UserId.ToString());
             HttpContext.Session.SetString("Username", user.UserName);
+            HttpContext.Session.SetString("Password", user.Password);
             HttpContext.Session.SetString("Email", user.Email);
             HttpContext.Session.SetString("StreetAddress", user.StreetAddress);
             HttpContext.Session.SetString("City", user.City);
@@ -99,7 +100,7 @@ namespace ECommerce_WebApp.Operations.Controllers
             var email = HttpContext.Session.GetString("Email");
             var streetaddress = HttpContext.Session.GetString("StreetAddress");
             var city = HttpContext.Session.GetString("City");
-            var province = HttpContext.Session.GetString("Provicne");
+            var province = HttpContext.Session.GetString("Province");
             var postalCode = HttpContext.Session.GetString("PostalCode");
             
             ViewBag.UserId = userId;
@@ -116,19 +117,39 @@ namespace ECommerce_WebApp.Operations.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
+            ViewBag.Province = SelectProvince();
             var user = _userService.GetUserById(id);
 
             if (user == null) { 
                 return View("Error");
             }
 
-            ViewBag.Province = SelectProvince();
+            
             return View(user);
         }
 
         [HttpPost]
-        public ActionResult Update(User user) { 
+        public ActionResult Update(User user) {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Province = SelectProvince();
+                return View(user);
+            }
+
+            var hashPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            user.Password = hashPassword;
+
             var save = _userService.UpdateUser(user);
+
+            // Update session data
+            HttpContext.Session.SetString("Username", user.UserName);
+            HttpContext.Session.SetString("Email", user.Email);
+            HttpContext.Session.SetString("Password", user.Password);
+            HttpContext.Session.SetString("StreetAddress", user.StreetAddress);
+            HttpContext.Session.SetString("City", user.City);
+            HttpContext.Session.SetString("Province", user.Province);
+            HttpContext.Session.SetString("PostalCode", user.PostalCode);
+
             return RedirectToAction("Account", "User");
         }
     }

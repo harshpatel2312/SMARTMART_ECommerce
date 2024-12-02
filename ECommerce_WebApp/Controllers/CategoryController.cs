@@ -1,10 +1,12 @@
-﻿using ECommerce_WebApp.Services;
+﻿using ECommerce_WebApp.Operations.Filters;
+using ECommerce_WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace ECommerce_WebApp.Operations.Controllers
 {
+    [SessionDataFilter]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

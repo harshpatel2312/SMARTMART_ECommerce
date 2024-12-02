@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using ECommerce_WebApp.Operations.Filters;
 
 namespace ECommerce_WebApp.Operations.Controllers
 {
+    [SessionDataFilter]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;

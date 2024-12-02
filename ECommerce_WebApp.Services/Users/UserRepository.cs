@@ -26,7 +26,14 @@ namespace ECommerce_WebApp.Services.Users
             var userExists = _dataContext.Users.FirstOrDefault(u => u.Email == email);
             if (userExists != null) {
                 bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, userExists.Password); // Checking if the password matches
-                return userExists;
+                if (isPasswordValid == true)
+                {
+                    return userExists;
+                }
+                else
+                {
+                    return null;
+                }
             }
             return null;
         }

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="DataLayer\" />
+    <Folder Include="DataLayer\" />
     <Folder Include="Views\Category\" />
     <Folder Include="wwwroot\images\products\" />
   </ItemGroup>

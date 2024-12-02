@@ -4,9 +4,11 @@ using ECommerce_WebApp.Entities;
 using System.Linq;
 using System.Threading.Tasks;
 using ECommerce_WebApp.Services;
+using ECommerce_WebApp.Operations.Filters;
 
 namespace ECommerce_WebApp.Operations.Controllers
 {
+    [SessionDataFilter]
     public class CheckoutController : Controller
     {
         private readonly DataContext _context;
@@ -20,7 +22,12 @@ namespace ECommerce_WebApp.Operations.Controllers
         [HttpPost]
         public async Task<IActionResult> Index()
         {
-            var userId = User.Identity?.Name ?? "testUser";
+            var userId = ViewBag.UserId as string;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("Login", "Account"); // Redirect if the user is not logged in
+            }
 
             // Get cart items for the current user
             var cartItems = await _context.UserCarts
@@ -35,7 +42,12 @@ namespace ECommerce_WebApp.Operations.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitOrder(string name, string shippingAddress, string paymentType)
         {
-            var userId = User.Identity?.Name ?? "testUser";
+            var userId = ViewBag.UserId as string;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("Login", "Account"); // Redirect if the user is not logged in
+            }
 
             // Get cart items for the user
             var cartItems = await _context.UserCarts
@@ -80,7 +92,12 @@ namespace ECommerce_WebApp.Operations.Controllers
         // Confirmation page (after placing the order)
         public IActionResult OrderConfirmation(string orderDate)
         {
-            var userId = User.Identity?.Name ?? "testUser";
+            var userId = ViewBag.UserId as string;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("Login", "Account"); // Redirect if the user is not logged in
+            }
 
             // Parse the order date from the query string
             if (!DateTime.TryParse(orderDate, out var parsedOrderDate))

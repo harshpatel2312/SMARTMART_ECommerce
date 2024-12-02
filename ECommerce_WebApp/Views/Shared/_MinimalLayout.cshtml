@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - SmartMart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    @RenderBody()
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/js/togglePassword.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

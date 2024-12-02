@@ -27,12 +27,13 @@ namespace ECommerce_WebApp.Services
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ConfigureProdandCategory();
-            base.OnModelCreating(modelBuilder);
+            //base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<UserCart>()
                 .HasOne(uc => uc.Product)
                 .WithMany()
                 .HasForeignKey(uc => uc.ProductId);
+
             modelBuilder.UsersSeed();
         }
 
@@ -42,8 +43,6 @@ namespace ECommerce_WebApp.Services
         {
             optionsBuilder.ConfigureWarnings(warnings =>
                 warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
-        }
-            
         }
     }
 }

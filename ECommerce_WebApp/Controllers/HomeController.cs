@@ -5,8 +5,10 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using ECommerce_WebApp.Operations.Models;
+using ECommerce_WebApp.Operations.Filters;
 namespace ECommerce_WebApp.Controllers
 {
+    [SessionDataFilter]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

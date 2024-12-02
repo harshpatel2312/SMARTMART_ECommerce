@@ -1,3 +1,4 @@
+using ECommerce_WebApp.Operations.Filters;
 using ECommerce_WebApp.Services;
 using ECommerce_WebApp.Services.Users;
 using Microsoft.EntityFrameworkCore;
@@ -5,7 +6,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<SessionDataFilter>();
+});
 
 builder.Services.AddSession(options =>
 {
