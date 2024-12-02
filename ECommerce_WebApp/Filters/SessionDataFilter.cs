@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
+//Made by Harsh
 namespace ECommerce_WebApp.Operations.Filters
 {
     public class SessionDataFilter : ActionFilterAttribute
@@ -13,7 +14,7 @@ namespace ECommerce_WebApp.Operations.Filters
             {
                 var httpContext = controller.HttpContext;
 
-                // Populate ViewBag or perform custom logic
+                // Populate ViewBag
                 controller.ViewBag.UserId = httpContext.Session.GetString("UserId");
                 controller.ViewBag.Username = httpContext.Session.GetString("Username");
                 controller.ViewBag.Email = httpContext.Session.GetString("Email");

@@ -1,4 +1,5 @@
-﻿function togglePassword() {
+﻿//Made by Harsh
+function togglePassword() {
     const passwordInput = document.getElementById("passwordInput");
     const toggleIcon = document.getElementById("toggleIcon");
 

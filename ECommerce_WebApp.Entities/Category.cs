@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+//made By Arjun
 namespace ECommerce_WebApp.Entities
 {
     public class Category
